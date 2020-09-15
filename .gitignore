@@ -3,5 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Data
+matches/results.csv
+
 # Reserved for dev branch
 test_game.py
