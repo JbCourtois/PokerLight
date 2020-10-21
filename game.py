@@ -3,10 +3,6 @@ from random import Random
 
 RANDOM_BITS = 256
 
-RANGES = [
-    [1, 4, 6, 7, 9, 12, 13, 15, 16, 18, 20],
-    [1, 2, 4, 5, 7, 9, 11, 13, 15, 19, 20],
-]
 STACK = 400
 POT_SIZES = {
     '1/3': 1 / 3,
@@ -17,18 +13,30 @@ POT_SIZES = {
 POT_SIZE_CHOICES = list(POT_SIZES)
 
 
+def get_initial_ranges():
+    RANGES = [
+        [1, 4, 6, 7, 9, 12, 13, 15, 16, 18, 20],
+        [1, 2, 4, 5, 7, 9, 11, 13, 15, 19, 20],
+    ]
+
+    return [
+        {
+            card: 1 / len(player_range)
+            for card in player_range
+        }
+        for player_range in RANGES
+    ]
+
+
 class Match:
     def __init__(self, bot0, bot1):
         self.bots = [bot0, bot1]
         self.active_bot_id = 0
         self.pot = [1, 2]  # TODO: Allow check
-        self.ranges = [
-            {
-                card: 1 / len(player_range)
-                for card in player_range
-            }
-            for player_range in RANGES
-        ]
+        self.ranges = get_initial_ranges()
+
+        for bot, card_range in zip(self.bots, self.ranges):
+            bot.range = list(card_range)
 
         self.bot0_winnings = 0
 
@@ -87,9 +95,9 @@ class Match:
 
 
 class Bot:
-    def __init__(self, seed, card_range):
+    def __init__(self, seed):
         self.rng = Random(seed)
-        self.range = card_range
+        self.range = [1]
 
     def receive_raise(self, pot_size):
         new_seed = str((self.rng.getrandbits(RANDOM_BITS), pot_size))
