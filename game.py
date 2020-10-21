@@ -98,19 +98,24 @@ class Bot:
     def __init__(self, seed):
         self.rng = Random(seed)
         self.range = [1]
+        self.history = []
 
     def receive_raise(self, pot_size):
+        self.history.append(['Received raise', pot_size])
+
         new_seed = str((self.rng.getrandbits(RANDOM_BITS), pot_size))
         self.rng.seed(new_seed)
 
     def get_raise_probabilities(self):
-        return {
+        action = {
             "size": self.rng.choice(POT_SIZE_CHOICES),
             "range": OrderedDict([
                 (card, self.rng.random())
                 for card in self.range[:-1]
             ]),
         }
+        self.history.append(['Action', action])
+        return action
 
 
 def iter_win_chance(opp_range):
