@@ -134,7 +134,7 @@ def iter_win_chance(opp_range):
     """
     win_chance = 0
     player_card = (yield None)
-    for opp_card, opp_prob in opp_range.items():
+    for opp_card, opp_prob in sorted(opp_range.items()):
         while player_card < opp_card:
             player_card = (yield win_chance)
 
