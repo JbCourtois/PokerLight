@@ -1,9 +1,11 @@
+from pprint import pprint
+
 from game import (
     Match, Bot,
 )
 
-BOT0_SEED = 4
-BOT1_SEED = 1
+BOT0_SEED = 1048
+BOT1_SEED = 3245
 
 bot0 = Bot(BOT0_SEED)
 bot1 = Bot(BOT1_SEED)
@@ -11,7 +13,7 @@ bot1 = Bot(BOT1_SEED)
 match = Match(bot0, bot1)
 match.run()
 
-print(bot0.history, end='\n\n')
-print(bot1.history, end='\n\n')
+pprint(bot0.history)
+pprint(bot1.history)
 
 print(match.bot0_winnings)

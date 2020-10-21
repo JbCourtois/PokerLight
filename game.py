@@ -3,7 +3,7 @@ from random import Random
 
 RANDOM_BITS = 256
 
-STACK = 400
+STACK = 20
 POT_SIZES = {
     '1/3': 1 / 3,
     '2/3': 2 / 3,
@@ -15,8 +15,8 @@ POT_SIZE_CHOICES = list(POT_SIZES)
 
 def get_initial_ranges():
     RANGES = [
-        [1, 4, 6, 7, 9, 12, 13, 15, 16, 18, 20],
-        [1, 2, 4, 5, 7, 9, 11, 13, 15, 19, 20],
+        [1, 3, 5, 7],
+        [2, 4, 6, 7],
     ]
 
     return [
